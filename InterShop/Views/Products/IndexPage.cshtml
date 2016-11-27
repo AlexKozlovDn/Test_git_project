@@ -1,0 +1,63 @@
+﻿@model PagedList.IPagedList<InterShop.Models.Products>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Список телефонов</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Модель
+        </th>
+        <th>
+           Описание
+        </th>
+        <th>
+           Категория
+        </th>
+        <th>
+           Цена
+        </th>
+        <th>
+           Количество
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td width="8px">
+                @Html.EditorFor(modelItem => item.Qvantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(modelItem => item.Qvantity, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                
+               
+                @Html.ActionLink("Добавить в Корзину", "AddToBasket", new { id = item.ProductID,item.Qvantity })
+              
+            </td>
+            
+        </tr>
+    }
+
+</table>
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("IndexPage", new { page }))

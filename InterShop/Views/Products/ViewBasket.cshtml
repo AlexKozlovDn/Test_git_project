@@ -1,0 +1,54 @@
+﻿@model IEnumerable<InterShop.Models.Cart>
+
+@{
+    ViewBag.Title = "ViewBasket";
+}
+
+<h2>ViewBasket</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qvantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePurchased)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qvantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePurchased)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+           @Html.ActionLink("Delete", "DeleteCart","Carts", new { id=item.ID },"")
+        </td>
+    </tr>
+}
+
+</table>
